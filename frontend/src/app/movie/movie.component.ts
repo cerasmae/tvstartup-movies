@@ -3,7 +3,7 @@ import { MovieDetail } from '../models/movie.model';
 import { ApiService } from '../services/api.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 
@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     NavbarComponent,
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css'
@@ -80,7 +81,7 @@ export class MovieComponent implements OnInit {
       console.log(this.postMovieForm);
     } catch (error) {
       console.error(error);
-      this.errorMessage = 'Something went wrong.'
+      this.errorMessage = 'Movie not found.'
     }
   }
 
