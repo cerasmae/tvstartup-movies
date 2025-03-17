@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
       const response = await this.apiService.postMovie(this.movieFile, this.movieTitle, this.movieDescription)
         .then(
           response => {
-            console.log('Movie uploaded successfully:', response);
+            console.log('Movie uploaded successfully!');
             window.location.reload();
           }
         )

@@ -42,8 +42,6 @@ export class ApiService {
       formData.append('video_file', videoFile);
       formData.append('title', title);
       formData.append('description', description);
-  
-      console.log(videoFile, title, description, formData);
 
       const response = await this.api.post('movie/', formData, {
         headers: {
@@ -51,7 +49,6 @@ export class ApiService {
         },
       });
 
-      console.log('Upload successful:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error uploading movie:', error);

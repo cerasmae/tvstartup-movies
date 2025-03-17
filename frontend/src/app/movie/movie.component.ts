@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 
 
 @Component({
@@ -28,6 +28,7 @@ export class MovieComponent implements OnInit {
   id = '';
   isEditingMovie: boolean = false;
   isChangingVideo: boolean = false;
+  createdDate: string = '';
 
   movie!: MovieDetail;
   movieId: string = '1';
@@ -45,8 +46,6 @@ export class MovieComponent implements OnInit {
     });
 
     this.fetchMovieById(this.id);
-
-
   }
 
   onSubmit(form: FormGroup, action: string) {
@@ -66,7 +65,7 @@ export class MovieComponent implements OnInit {
 
   async fetchMovieById(movieId: string) {
     if (!movieId) {
-      console.error('enter a valid number');
+      console.error('Enter a valid number');
       return;
     }
 
@@ -77,8 +76,9 @@ export class MovieComponent implements OnInit {
         file: null,
         description: this.movie.description,
       });
+      let dateParsed = Date.parse(this.movie.created_date);
+      this.createdDate = formatDate(dateParsed, 'longDate', 'en-US');
 
-      console.log(this.postMovieForm);
     } catch (error) {
       console.error(error);
       this.errorMessage = 'Movie not found.'
@@ -88,7 +88,7 @@ export class MovieComponent implements OnInit {
   async updateMovie() {
     try {
       const response = await this.apiService.patchMovie(this.id, this.movieFile, this.movieTitle, this.movieDescription)
-        .then(response => console.log('Movie uploaded successfully:', response))
+        .then(response => console.log('Movie uploaded successfully!'))
         .catch(error => console.error('Upload failed:', error));
       window.location.reload();
     } catch (error) {
@@ -100,7 +100,7 @@ export class MovieComponent implements OnInit {
   async deleteMovie() {
     try {
       const response = await this.apiService.deleteMovie(this.id)
-      .then(response => console.log('Movie deleted successfully:', response))
+      .then(response => console.log('Movie deleted successfully!'))
       .catch(error => console.error('Upload failed:', error));
 
       window.location.href = '/';
@@ -129,9 +129,7 @@ export class MovieComponent implements OnInit {
   isModalOpen: boolean = false;
 
   openModal() {
-    console.log('open model');
     this.isModalOpen = true;
-    console.log(this.isModalOpen);
   }
 
   closeModal() {

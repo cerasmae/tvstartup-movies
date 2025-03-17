@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
     if (this.router.url == '/') {
       this.isHome = true;
     }
-    console.log(this.isHome);
   }
 
 }
