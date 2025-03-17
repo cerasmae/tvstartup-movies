@@ -1,0 +1,84 @@
+<main class="main">
+  <app-navbar></app-navbar>
+
+  <div class="content p-2">
+    <div class="flex items-center justify-center mt-4">
+      <h1 class="h1 text-2xl">
+        @if (isCreatingMovie) {
+          Create Movie
+        }
+        @else {
+          Movies
+        }
+      </h1>  
+    </div>
+
+    <button class="fixed right-6 bottom-6 z-50 bg-gray-800 size-20 box-border rounded-full shadow-lg cursor-pointer" (click)="createMovieToggle(!isCreatingMovie)">
+      <span class="flex flex-row items-center justify-center text-md text-white">
+        @if (isCreatingMovie) {
+          Cancel
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>          
+        }
+        @else {
+          Create
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        }
+      </span>
+    </button>
+
+    <div class="p-4 pt-5 flex flex-col items-center justify-center">
+      @if (isCreatingMovie) {
+        <div class="mt-6 w-full">
+          <form class="md:max-w-lg lg:max-w-2xl mx-auto" [formGroup]="postMovieForm" (ngSubmit)="onSubmit(postMovieForm)">
+            <div class="mb-5">
+              <label class="block mb-2 text-lg font-medium text-gray-900" for="movieTitle">
+                Enter Movie Title:
+              </label>
+              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="movieTitle" formControlName="title">
+            </div>
+        
+            <div class="mb-5">
+              <label for="movieFile" class="block mb-2 text-lg font-medium text-gray-900">
+                Enter Movie File:
+              </label>
+              <input type="file" accept="video/*" id="movieFile" formControlName="file" (change)="onFileSelected($event)" class="file-input block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+            </div>
+        
+            <div class="mb-5">
+              <label for="movieDescription" class="block mb-2 text-lg font-medium text-gray-900">
+                Enter Movie Description:
+              </label>
+              <textarea id="movieDescription" formControlName="description" rows="4" class="block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 focus:outline-none cursor-pointer">Submit</button>
+          </form>
+        </div>
+      }
+      @else {
+        <div class="gap-6 mt-6 items-center mx-auto grid lg:grid-cols-3 md:grid-cols-2">
+          @if (errorMessage) {
+            <span>{{ errorMessage }}</span>
+          }
+          @else {
+            @for (movie of movies; track movie.id) {
+              <a routerLink="/movie/{{movie.id}}">
+                <div class="items-center justify-center box-border overflow-hidden p-0">
+                  <div class="flex items-center justify-center box-border overflow-hidden rounded-xl bg-stone-950 lg:max-w-100 h-75 m-0">
+                    <video class="overflow-auto" src="{{movie.video_file}}"></video>
+                  </div>
+                  <h1 class="text-lg mt-2">{{ movie.title }}</h1>
+                  </div>
+              </a>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+</main>
+

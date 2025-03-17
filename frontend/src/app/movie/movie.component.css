@@ -1,0 +1,16 @@
+.file-input {
+  border: 1px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.file-input::file-selector-button {
+  padding: 6px 12px;
+  background-color: #1e1b4b;
+  color: white;
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+}
