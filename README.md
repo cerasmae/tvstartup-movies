@@ -25,6 +25,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 ### Prerequisites
 
 * Python virtualenv (pyenv or venv)
+* Python >= 3.11.5
+* Angular: 19.2.2
+* Node: 22.5.1
+* Package Manager: npm 10.8.2
+* Tailwind CSS: v4.0
 
 
 ### Installation
