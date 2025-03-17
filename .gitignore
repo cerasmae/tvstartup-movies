@@ -44,6 +44,7 @@ Thumbs.db
 # Backend Media
 backend/media
 backend/backend/settings.py
+backend/db.sqlite3
 
 # Python pyc files
 *.pyc
